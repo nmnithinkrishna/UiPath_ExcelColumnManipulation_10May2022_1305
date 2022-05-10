@@ -34,7 +34,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="20">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="40">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -55,6 +55,14 @@
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap:VirtualizedContainerService.HintSize="376,534" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -87,9 +95,9 @@
         <OutArgument x:TypeArguments="sd:DataTable">[dt_TableFormatted]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="sd:DataTable">[dt_Table.AsEnumerable.Select(Function(row) dt_TableFormatted.Rows.Add(row.ItemArray.Select(Function(item) if(string.IsNullOrEmpty(Convert.ToString(item)),0,CInt(item)/1000 )).Cast(Of Object).ToArray)).CopyToDataTable]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable">[dt_Table.AsEnumerable.Select(Function(row) dt_TableFormatted.Rows.Add(row.ItemArray.Select(Function(item, index) if( ({"Col A","Col B"}).Contains(dt_Table.Columns(index).ColumnName), if(string.IsNullOrEmpty(Convert.ToString(item)), 0, CInt(item)/1000 ), if( ({"Col A","Col B"}).Contains(dt_Table.Columns(index).ColumnName), Decimal.Parse(item.ToString).ToString("#.##"), item))).Cast(Of Object).ToArray)).CopyToDataTable]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:WriteRange AddHeaders="True" DataTable="[dt_TableFormatted]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,115" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Sheet1" StartingCell="A1" WorkbookPath="Data_Output.xlsx" />
+    <ui:WriteRange AddHeaders="True" DataTable="[dt_TableFormatted]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,115" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Sheet1" StartingCell="A1" WorkbookPath="Data_Output_v2.xlsx" />
   </Sequence>
 </Activity>
