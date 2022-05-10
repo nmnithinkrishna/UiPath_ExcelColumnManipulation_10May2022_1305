@@ -1,0 +1,2 @@
+# UiPath_ExcelColumnManipulation_10May2022_1305
+Manipulate excel column using UiPath
